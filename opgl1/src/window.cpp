@@ -1,7 +1,7 @@
 #include "window.h"
 
 Window::Window(int height, int weight, const char* windowName)
-	: height(height), weight(weight), windowName(windowName)
+	: height(height), weight(weight), windowName(windowName), window(nullptr)
 {
 }
 
