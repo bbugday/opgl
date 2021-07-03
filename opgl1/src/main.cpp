@@ -5,6 +5,7 @@
 
 int main(void)
 {
+
     Window window(640, 480, "Hello World");
 
     if (window.init())
@@ -30,14 +31,15 @@ int main(void)
         "layout (location = 0) in vec2 aPos;\n"
         "void main()\n"
         "{\n"
-        "   gl_Position = vec4(aPos.x, aPos.y, 0.0f, 1.0f);\n"
+        "   gl_Position = vec4(aPos, 0.0f, 1.0f);\n"
         "}\0";
 
     const char* fragmentShaderSource = "#version 330 core\n"
         "out vec4 FragColor;\n"
+        "uniform vec4 ourColor;"
         "void main()\n"
         "{\n"
-        "   FragColor = vec4(1.0f, 0.0f, 0.0f, 1.0f);\n"
+        "   FragColor = ourColor;\n"
         "}\0";
 
     const char* fragmentShaderSourceYellow = "#version 330 core\n"
@@ -134,6 +136,12 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
         glUseProgram(shaderProgram);
+
+        float timeValue = glfwGetTime();
+        float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+        int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+        glUniform4f(vertexColorLocation, 0.0f, greenValue, 0.0f, 1.0f);
+
         glBindVertexArray(vaos[0]);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
@@ -144,6 +152,11 @@ int main(void)
         window.swapBuffers();
         window.pollEvents();
     }
+
+    glDeleteVertexArrays(2, vaos);
+    glDeleteBuffers(2, vbos);
+    glDeleteBuffers(1, &ebo);
+    glDeleteProgram(shaderProgram);
 
     window.terminate();
 

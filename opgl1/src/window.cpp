@@ -1,5 +1,10 @@
 #include "window.h"
 
+static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+}
+
 Window::Window(int height, int weight, const char* windowName)
 	: height(height), weight(weight), windowName(windowName), window(nullptr)
 {
@@ -24,6 +29,7 @@ int Window::init()
 	}
 
 	glfwMakeContextCurrent(window);
+	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	glfwSwapInterval(1);
 
