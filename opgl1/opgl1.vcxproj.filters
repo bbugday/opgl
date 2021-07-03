@@ -21,10 +21,21 @@
     <ClCompile Include="src\window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shaders\firstTriangleVertex.glsl" />
+    <None Include="res\shaders\firstTriangleFragment.glsl" />
+    <None Include="res\shaders\secondTriangleFragment.glsl" />
   </ItemGroup>
 </Project>

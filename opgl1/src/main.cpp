@@ -2,6 +2,7 @@
 #include <GL/glew.h>
 
 #include "window.h"
+#include "shader.h"
 
 int main(void)
 {
@@ -69,41 +70,8 @@ int main(void)
         0, 1, 2
     };
 
-
-    unsigned int vertexShader;
-    vertexShader = glCreateShader(GL_VERTEX_SHADER);
-
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
-
-    unsigned int fragmentShader;
-    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
-
-    unsigned int shaderProgram;
-    shaderProgram = glCreateProgram();
-
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-    glUseProgram(shaderProgram);
-
-    unsigned int fragmentShaderYellow;
-    fragmentShaderYellow = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShaderYellow, 1, &fragmentShaderSourceYellow, NULL);
-    glCompileShader(fragmentShaderYellow);
-
-    unsigned int shaderProgram2;
-    shaderProgram2 = glCreateProgram();
-
-    glAttachShader(shaderProgram2, vertexShader);
-    glAttachShader(shaderProgram2, fragmentShaderYellow);
-    glLinkProgram(shaderProgram2);
-
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-    glDeleteShader(fragmentShaderYellow);
+    Shader firstShader("res/shaders/firstTriangleVertex.glsl", "res/shaders/firstTriangleFragment.glsl");
+    Shader secondShader("res/shaders/firstTriangleVertex.glsl", "res/shaders/secondTriangleFragment.glsl");
 
     unsigned int vaos[2];
     glGenVertexArrays(2, vaos);
@@ -114,7 +82,7 @@ int main(void)
 
     glBindVertexArray(vaos[0]);
     glBindBuffer(GL_ARRAY_BUFFER, vbos[0]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(firstTriangle), firstTriangle, GL_STATIC_DRAW); //deðiþtir
+    glBufferData(GL_ARRAY_BUFFER, sizeof(firstTriangle), firstTriangle, GL_STATIC_DRAW); 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
@@ -141,11 +109,11 @@ int main(void)
     {
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shaderProgram);
+        firstShader.use();
         glBindVertexArray(vaos[0]);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-        glUseProgram(shaderProgram2);
+        secondShader.use();
         glBindVertexArray(vaos[1]);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
@@ -156,7 +124,6 @@ int main(void)
     glDeleteVertexArrays(2, vaos);
     glDeleteBuffers(2, vbos);
     glDeleteBuffers(1, &ebo);
-    glDeleteProgram(shaderProgram);
 
     window.terminate();
 
