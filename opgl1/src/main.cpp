@@ -26,32 +26,6 @@ int main(void)
     std::cout << glGetString(GL_VERSION) << std::endl;
     std::cout << "Status: Using GLEW " << glewGetString(GLEW_VERSION) << std::endl;
 
-    const char* vertexShaderSource = "#version 330 core\n"
-        "layout (location = 0) in vec2 aPos;\n"
-        "layout(location = 1) in vec3 aColor;\n"
-        "out vec3 ourColor;\n"
-        "void main()\n"
-        "{\n"
-        "   gl_Position = vec4(aPos, 0.0f, 1.0f);\n"
-        "   ourColor = aColor;\n"  
-        "}\0";
-
-    const char* fragmentShaderSource = "#version 330 core\n"
-        "out vec4 FragColor;\n"
-        "in vec3 ourColor;\n"
-        "void main()\n"
-        "{\n"
-        "   FragColor = vec4(ourColor, 1.0);\n"
-        "}\0";
-    
-    const char* fragmentShaderSourceYellow = "#version 330 core\n"
-        "out vec4 FragColor;\n"
-        "void main()\n"
-        "{\n"
-        "   FragColor = vec4(1.0f, 1.0f, 0.0f, 1.0f);\n"
-        "}\0";
-
-
     float firstTriangle[] = {
 
         //positions    //colors
@@ -110,6 +84,8 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
         firstShader.use();
+        float offset = -0.1f;
+        firstShader.setFloat("xOffset", offset);
         glBindVertexArray(vaos[0]);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
