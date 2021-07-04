@@ -145,18 +145,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ebo.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\shader.cpp" />
+    <ClCompile Include="src\vao.cpp" />
+    <ClCompile Include="src\vbo.cpp" />
     <ClCompile Include="src\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ebo.h" />
     <ClInclude Include="src\shader.h" />
+    <ClInclude Include="src\vao.h" />
+    <ClInclude Include="src\vbo.h" />
     <ClInclude Include="src\window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\firstTriangleFragment.glsl" />
     <None Include="res\shaders\firstTriangleVertex.glsl" />
-    <None Include="res\shaders\secondTriangleFragment.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
