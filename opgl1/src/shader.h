@@ -2,6 +2,8 @@
 
 #include <string>
 
+enum shaderType { VERTEX, FRAGMENT };
+
 class Shader
 {
 public:
@@ -9,6 +11,9 @@ public:
     Shader(const char* vertexPath, const char* fragmentPath);
     ~Shader();
     void use();
+    std::string parseShaderFile(const char* filePath);
+    unsigned int compileShader(const char* code, shaderType type);
+    void createProgram(unsigned int vertex, unsigned int fragment);
 
     // utility uniform functions
     void setBool(const std::string& name, bool value) const;
