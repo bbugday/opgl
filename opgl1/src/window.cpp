@@ -5,31 +5,6 @@ static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	if (key == GLFW_KEY_ESCAPE)
-		glfwTerminate();
-	if (action == GLFW_PRESS)
-	{
-		if (key == GLFW_KEY_LEFT)
-		{
-			
-		}
-		if (key == GLFW_KEY_RIGHT)
-		{
-
-		}
-		if (key == GLFW_KEY_UP)
-		{
-
-		}
-		if (key == GLFW_KEY_DOWN)
-		{
-
-		}
-	}
-}
-
 Window::Window(int height, int weight, const char* windowName)
 	: height(height), weight(weight), windowName(windowName), window(nullptr)
 {
@@ -52,8 +27,6 @@ int Window::init()
 		glfwTerminate();
 		return -1;
 	}
-
-	glfwSetKeyCallback(window, key_callback);
 
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
@@ -81,4 +54,9 @@ void Window::pollEvents()
 void Window::terminate()
 {
 	glfwTerminate();
+}
+
+void Window::setKeyCallback(GLFWkeyfun callback)
+{
+	glfwSetKeyCallback(window, callback);
 }

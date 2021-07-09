@@ -10,6 +10,7 @@ public:
 	void swapBuffers();
 	void pollEvents();
 	void terminate();
+	void setKeyCallback(GLFWkeyfun callback);
 private:
 	GLFWwindow* window;
 	int height;
