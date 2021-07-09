@@ -9,7 +9,7 @@
 
 int main(void)
 {
-    Window window(640, 480, "Hello World");
+    Window window(800, 800, "Hello World");
 
     if (window.init())
     {
@@ -28,39 +28,37 @@ int main(void)
     std::cout << glGetString(GL_VERSION) << std::endl;
     std::cout << "Status: Using GLEW " << glewGetString(GLEW_VERSION) << std::endl;
 
-    float firstTriangle[] = {
-
-        //positions    //colors
-        -0.9f, -0.5f,  1.0f, 0.0f, 0.0f,
-        -0.0f, -0.5f,  0.0f, 1.0f, 0.0f,
-        -0.45f, 0.5f,  0.0f, 0.0f, 1.0f
-    };
-  
-    unsigned int indices[] = {  
-        0, 1, 2
+    float squareVertex[] = {
+         0.025f,  0.025f,
+        -0.025f,  0.025f,
+        -0.025f, -0.025f,
+         0.025f, -0.025f
     };
 
-    Shader firstShader("res/shaders/firstTriangleVertex.glsl", "res/shaders/firstTriangleFragment.glsl");
+    unsigned int squareIndices[] = {
+        0, 1, 3,
+        1, 2, 3
+    };
 
-    Vao vao;
-    Vbo vbo(firstTriangle, sizeof(firstTriangle));
-    vbo.attribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    vbo.attribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
-    Ebo ebo(indices, sizeof(indices));
+    float offset = 0.1f;
 
-    vao.unbind();
-    vbo.unbind();
-    ebo.unbind();
+    Shader squareShader("res/shaders/squareVertex.glsl", "res/shaders/squareFragment.glsl");
+
+    Vao squareVao;
+    Vbo squareVbo(squareVertex, sizeof(squareVertex));
+    squareVbo.attribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    Ebo squareEbo(squareIndices, sizeof(squareIndices));
+
+    squareVao.unbind();
+    squareVbo.unbind();
+    squareEbo.unbind();
 
     while (!window.shouldClose())
     {
         glClear(GL_COLOR_BUFFER_BIT);
 
-        float offset = -0.1f;
-        firstShader.setFloat("xOffset", offset);
-
-        firstShader.use();
-        vao.bind();
+        squareShader.use();
+        squareVao.bind();
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         window.swapBuffers();
