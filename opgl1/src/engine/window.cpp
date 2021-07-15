@@ -7,8 +7,7 @@ static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 
 Window::Window(int height, int weight, const char* windowName)
 	: height(height), weight(weight), windowName(windowName), window(nullptr)
-{
-}
+{}
 
 int Window::init()
 {

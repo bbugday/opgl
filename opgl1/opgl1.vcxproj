@@ -86,7 +86,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;GLEW_STATIC;SNAKE_GAME;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLEW\include</AdditionalIncludeDirectories>
     </ClCompile>
@@ -103,7 +103,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;GLEW_STATIC;SNAKE_GAME;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)\Dependencies\GLFW\include;$(SolutionDir)\Dependencies\GLEW\include</AdditionalIncludeDirectories>
     </ClCompile>
@@ -145,19 +145,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\ebo.cpp" />
+    <ClCompile Include="src\engine\ebo.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\shader.cpp" />
-    <ClCompile Include="src\vao.cpp" />
-    <ClCompile Include="src\vbo.cpp" />
-    <ClCompile Include="src\window.cpp" />
+    <ClCompile Include="src\engine\error_check.cpp" />
+    <ClCompile Include="src\engine\shader.cpp" />
+    <ClCompile Include="src\snake\snake.cpp" />
+    <ClCompile Include="src\engine\vao.cpp" />
+    <ClCompile Include="src\engine\vbo.cpp" />
+    <ClCompile Include="src\engine\window.cpp" />
+    <ClCompile Include="src\snake\snake_game.cpp" />
+    <ClCompile Include="src\snake\square.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ebo.h" />
-    <ClInclude Include="src\shader.h" />
-    <ClInclude Include="src\vao.h" />
-    <ClInclude Include="src\vbo.h" />
-    <ClInclude Include="src\window.h" />
+    <ClInclude Include="src\snake\game_consts.h" />
+    <ClInclude Include="src\engine\ebo.h" />
+    <ClInclude Include="src\engine\error_check.h" />
+    <ClInclude Include="src\engine\shader.h" />
+    <ClInclude Include="src\snake\snake.h" />
+    <ClInclude Include="src\engine\vao.h" />
+    <ClInclude Include="src\engine\vbo.h" />
+    <ClInclude Include="src\engine\window.h" />
+    <ClInclude Include="src\snake\square.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\firstTriangleFragment.glsl" />

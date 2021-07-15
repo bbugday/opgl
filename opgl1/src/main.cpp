@@ -1,53 +1,23 @@
+#ifdef MAIN
+
 #include <iostream>
 #include <GL/glew.h>
 
-#include "window.h"
-#include "shader.h"
-#include "vao.h"
-#include "vbo.h"
-#include "ebo.h"
-
-float offsetX = 0;
-float offsetY = 0;
-
-static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-    float speed = 0.05f;
-
-    if (key == GLFW_KEY_ESCAPE)
-        glfwTerminate();
-    if (action == GLFW_PRESS)
-    {
-        if (key == GLFW_KEY_LEFT)
-        {
-            offsetX -= speed;
-        }
-        if (key == GLFW_KEY_RIGHT)
-        {
-            offsetX += speed;
-        }
-        if (key == GLFW_KEY_UP)
-        {
-            offsetY += speed;
-        }
-        if (key == GLFW_KEY_DOWN)
-        {
-            offsetY -= speed;
-        }
-    }
-}
+#include "engine/window.h"
+#include "engine/shader.h"
+#include "engine/vao.h"
+#include "engine/vbo.h"
+#include "engine/ebo.h"
 
 int main(void)
 {
-    Window window(800, 800, "Hello World");
+    Window window(640, 480, "Hello World");
 
     if (window.init())
     {
         std::cout << "GLFW failed";
         return -1;
     }
-
-    window.setKeyCallback(keyCallback);
 
     GLenum err = glewInit();
 
@@ -60,47 +30,40 @@ int main(void)
     std::cout << glGetString(GL_VERSION) << std::endl;
     std::cout << "Status: Using GLEW " << glewGetString(GLEW_VERSION) << std::endl;
 
-    const float length = 0.05f;
-    const float halfLength = length / 2;
+    float firstTriangle[] = {
 
-    float squareVertex[] = {
-         halfLength,  halfLength,
-        -halfLength,  halfLength,
-        -halfLength, -halfLength,
-         halfLength, -halfLength
+        //positions    //colors
+        -0.9f, -0.5f,  1.0f, 0.0f, 0.0f,
+        -0.0f, -0.5f,  0.0f, 1.0f, 0.0f,
+        -0.45f, 0.5f,  0.0f, 0.0f, 1.0f
     };
 
-    unsigned int squareIndices[] = {
-        0, 1, 3,
-        1, 2, 3
+    unsigned int indices[] = {
+        0, 1, 2
     };
 
-    Shader squareShader("res/shaders/squareVertex.glsl", "res/shaders/squareFragment.glsl");
+    Shader firstShader("res/shaders/firstTriangleVertex.glsl", "res/shaders/firstTriangleFragment.glsl");
 
-    Vao squareVao;
-    Vbo squareVbo(squareVertex, sizeof(squareVertex));
-    squareVbo.attribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
-    Ebo squareEbo(squareIndices, sizeof(squareIndices));
+    Vao vao;
+    Vbo vbo(firstTriangle, sizeof(firstTriangle));
+    vbo.attribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    vbo.attribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
+    Ebo ebo(indices, sizeof(indices));
 
-    squareVao.unbind();
-    squareVbo.unbind();
-    squareEbo.unbind();
-
-    unsigned int squareCount = 5;
+    vao.unbind();
+    vbo.unbind();
+    ebo.unbind();
 
     while (!window.shouldClose())
     {
         glClear(GL_COLOR_BUFFER_BIT);
 
-        squareVao.bind();
+        float offset = -0.1f;
+        firstShader.setFloat("xOffset", offset);
 
-        squareShader.use();
-
-        for (int i = 0; i < squareCount; i++)
-        {
-            squareShader.setVec2Float("offset", offsetX - length * i, offsetY);
-            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        }
+        firstShader.use();
+        vao.bind();
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         window.swapBuffers();
         window.pollEvents();
@@ -110,5 +73,7 @@ int main(void)
 
     return 0;
 }
+
+#endif
 
 
