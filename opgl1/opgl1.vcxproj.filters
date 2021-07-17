@@ -74,11 +74,21 @@
     <ClInclude Include="src\snake\game_consts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\vendor\stb_image\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\firstTriangleVertex.glsl" />
     <None Include="res\shaders\firstTriangleFragment.glsl" />
     <None Include="res\shaders\squareVertex.glsl" />
     <None Include="res\shaders\squareFragment.glsl" />
+    <None Include="res\shaders\tFragment.glsl" />
+    <None Include="res\shaders\tVertex.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\textures\container.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
