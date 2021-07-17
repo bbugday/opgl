@@ -177,6 +177,7 @@
     <None Include="res\shaders\tVertex.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\textures\awesomeface.png" />
     <Image Include="res\textures\container.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
