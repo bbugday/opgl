@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\engine\ebo.cpp" />
+    <ClCompile Include="src\engine\texture.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\engine\error_check.cpp" />
     <ClCompile Include="src\engine\shader.cpp" />
@@ -157,6 +158,7 @@
     <ClCompile Include="src\snake\square.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\engine\texture.h" />
     <ClInclude Include="src\snake\game_consts.h" />
     <ClInclude Include="src\engine\ebo.h" />
     <ClInclude Include="src\engine\error_check.h" />
