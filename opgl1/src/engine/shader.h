@@ -20,6 +20,7 @@ public:
     void setInt(const std::string& name, int value) const;
     void setFloat(const std::string& name, float value) const;
     void setVec2Float(const std::string& name, float v0, float v1) const;
+    void setMatrix4fv(const std::string& name, int count, bool transpose, float* value);
 
 private:
     unsigned int ID;

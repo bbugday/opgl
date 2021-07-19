@@ -96,6 +96,11 @@ void Shader::setVec2Float(const std::string& name, float v0, float v1) const
     glUniform2f(glGetUniformLocation(ID, name.c_str()), v0, v1);
 }
 
+void Shader::setMatrix4fv(const std::string& name, int count, bool transpose, float *value)
+{
+    glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), count, transpose, value);
+}
+
 static void checkCompileErrors(unsigned int shader, std::string type)
 {
     int success;

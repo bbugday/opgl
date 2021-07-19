@@ -1,17 +1,23 @@
 #ifdef MAIN
 
 #include <iostream>
+
 #include <GL/glew.h>
 
-#include "engine/window.h"
-#include "engine/shader.h"
-#include "engine/vao.h"
-#include "engine/vbo.h"
-#include "engine/ebo.h"
-#include "engine/texture.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "window.h"
+#include "shader.h"
+#include "vao.h"
+#include "vbo.h"
+#include "ebo.h"
+#include "texture.h"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "vendor/stb_image/stb_image.h"
+#include "stb_image/stb_image.h"
+
 
 int main(void)
 {
@@ -63,7 +69,7 @@ int main(void)
     vbo.unbind();
     ebo.unbind();
     t2.unbind();
-    
+
     tShader.use();
     tShader.setInt("texture1", 0);
     tShader.setInt("texture2", 1);
@@ -72,12 +78,26 @@ int main(void)
     {
         glClear(GL_COLOR_BUFFER_BIT);
 
+        glm::mat4 trans = glm::mat4(1.0f);
+
+        trans = glm::translate(trans, glm::vec3(0.5f, 0.5f, 0.0f));
+        trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0f, 0.0f, 1.0f));
+
         tShader.use();
+        tShader.setMatrix4fv("transform", 1, GL_FALSE, glm::value_ptr(trans));
 
         t1.activeAndBind(0);
         t2.activeAndBind(1);
 
         vao.bind();
+
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+        trans = glm::mat4(1.0f);
+        trans = glm::translate(trans, glm::vec3(-0.5f, -0.5f, 0.0f));
+        float scaleAmount = sin(glfwGetTime());
+        trans = glm::scale(trans, glm::vec3(scaleAmount, scaleAmount, scaleAmount));
+        tShader.setMatrix4fv("transform", 1, GL_FALSE,& trans[0][0]);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
